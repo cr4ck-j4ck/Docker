@@ -11,6 +11,8 @@ app.get("/lucky-number", (req,res)=>{
     res.send(`Hey!, this is your lucky number - ${Math.ceil(Math.random()*10)}`);
 } );
 
-app.listen(PORT,()=>{
+
+app.listen(PORT, () => {
     console.log("Server started listening on port - ",PORT);
 });
+
