@@ -1,0 +1,24 @@
+{
+  "name": "ws-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "dotenv -e ../../.env pnpm dlx tsx watch ./src/index.ts"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.33.0",
+  "dependencies": {
+    "@repo/prisma": "workspace:*",
+    "@types/ws": "^8.18.1",
+    "ws": "^8.20.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "typescript": "^6.0.2"
+  }
+}
