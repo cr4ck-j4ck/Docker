@@ -1,4 +1,4 @@
-import  { WebSocketServer } from "ws";
+import { WebSocketServer } from "ws";
 import { prismaClient } from "@repo/prisma";
 
 const wss = new WebSocketServer({
@@ -6,12 +6,12 @@ const wss = new WebSocketServer({
 });
 
 interface IparsedData {
-  event: string,
+  event: string;
   userData: {
-    username: string,
-    password: string,
-    id?:number,
-  }
+    username: string;
+    password: string;
+    id?: number;
+  };
 }
 
 wss.on("connection", function connection(ws) {
@@ -23,8 +23,8 @@ wss.on("connection", function connection(ws) {
       const createdUser = await prismaClient.user.create({
         data: {
           username: parsedData.userData.username,
-          password: parsedData.userData.password.toString()
-        }
+          password: parsedData.userData.password.toString(),
+        },
       });
       console.log(createdUser);
     }
