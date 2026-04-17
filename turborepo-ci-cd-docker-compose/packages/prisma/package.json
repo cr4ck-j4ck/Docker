@@ -13,7 +13,7 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
-    "generate": "prisma generate",
+    "generate": "pnpm dlx prisma generate",
     "build": "tsc",
     "dev": "pnpm run generate && pnpm run build"
   },

@@ -1,8 +1,7 @@
 {
   "extends": "@repo/typescript-config/base.json",
   "compilerOptions": {
-    "composite": true,
-    "rootDir": "./src",
+    "rootDir": "./",
     "outDir": "./dist",
     "strictNullChecks": true,
     "module": "nodenext",
