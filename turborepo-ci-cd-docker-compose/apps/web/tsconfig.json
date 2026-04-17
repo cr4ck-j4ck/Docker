@@ -1,5 +1,5 @@
 {
-  "extends": "@devops/typescript-config/nextjs.json",
+  "extends": "@repo/typescript-config/nextjs.json",
   "compilerOptions": {
     "plugins": [
       {
@@ -7,7 +7,7 @@
       }
     ],
     "strictNullChecks": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "bundler"
   },
   "include": [
     "**/*.ts",

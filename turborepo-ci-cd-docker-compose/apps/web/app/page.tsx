@@ -1,10 +1,9 @@
 import styles from "./page.module.css";
 import { prismaClient } from "@repo/prisma";
-
 export const dynamic = "force-dynamic";
 
 type UserRecord = {
-  id: number;
+  userId: number;
   username: string;
   password: string;
 };
@@ -21,15 +20,14 @@ const loadUsers = async () => {
   try {
     const users = await prismaClient.user.findMany({
       select: {
-        id: true,
+        userId: true,
         username: true,
         password: true,
       },
       orderBy: {
-        id: "asc",
+        userId: "asc",
       },
     });
-
     return { users, error: null as null | string };
   } catch (error) {
     console.error("Failed to load users", error);
@@ -137,7 +135,7 @@ export default async function Home() {
               </thead>
               <tbody>
                 {users.map((user) => (
-                  <tr key={user.id}>
+                  <tr key={user.userId}>
                     <td>
                       <div className={styles.userCell}>
                         <span className={styles.avatar}>{getInitials(user.username)}</span>
@@ -150,7 +148,7 @@ export default async function Home() {
                     <td>
                       <code className={styles.inlineCode}>{user.username}</code>
                     </td>
-                    <td>#{user.id}</td>
+                    <td>#{user.userId}</td>
                     <td>{formatMaskedSecret(user.password)}</td>
                   </tr>
                 ))}

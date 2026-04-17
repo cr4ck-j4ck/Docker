@@ -122,6 +122,9 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      typescript:
+        specifier: ^6.0.2
+        version: 6.0.2
 
   packages/typescript-config: {}
 

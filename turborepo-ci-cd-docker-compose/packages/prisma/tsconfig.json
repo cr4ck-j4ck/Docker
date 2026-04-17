@@ -4,12 +4,14 @@
     "rootDir": "./",
     "outDir": "./dist",
     "strictNullChecks": true,
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
     "declaration": true,
     "declarationMap": true,
-    "emitDeclarationOnly": false
+    "emitDeclarationOnly": false,
+    "noEmit": true
   },
-  "include": ["src"],
+  "include": ["src", "generated"],
   "exclude": ["node_modules", "dist"]
 }
