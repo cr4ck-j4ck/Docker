@@ -12,8 +12,7 @@
     }
   },
   "scripts": {
-    "generate": "pnpm dlx prisma generate",
-    "dev": "pnpm run generate"
+    "generate": "pnpm dlx prisma generate"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.7.0",
