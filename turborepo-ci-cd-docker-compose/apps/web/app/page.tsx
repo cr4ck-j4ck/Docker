@@ -1,5 +1,5 @@
 import styles from "./page.module.css";
-import { prismaClient } from "@devops/prisma";
+import { prismaClient } from "@repo/prisma";
 
 export const dynamic = "force-dynamic";
 
