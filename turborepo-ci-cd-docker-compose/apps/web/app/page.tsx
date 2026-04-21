@@ -2,6 +2,8 @@ import styles from "./page.module.css";
 import { prismaClient } from "@repo/prisma";
 export const dynamic = "force-dynamic";
 
+
+
 type UserRecord = {
   userId: number;
   username: string;
@@ -16,7 +18,10 @@ const formatMaskedSecret = (secret: string) => {
 
 const getInitials = (username: string) => username.slice(0, 2).toUpperCase();
 
-const loadUsers = async () => {
+const loadUsers = async (): Promise<{
+  users: UserRecord[];
+  error: string | null;
+}> => {
   try {
     const users = await prismaClient.user.findMany({
       select: {
@@ -45,7 +50,8 @@ export default async function Home() {
   const totalUsers = users.length;
   const averageUsernameLength = totalUsers
     ? Math.round(
-        users.reduce((sum, user) => sum + user.username.length, 0) / totalUsers,
+        users.reduce((sum: number, user) => sum + user.username.length, 0) /
+          totalUsers,
       )
     : 0;
   const longestSecret = users.reduce(
@@ -58,11 +64,13 @@ export default async function Home() {
       <section className={styles.hero}>
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}>Next.js x Prisma x Postgresql</p>
-          <h1 className={styles.title}>User intelligence, rendered live from your database.</h1>
+          <h1 className={styles.title}>
+            User intelligence, rendered live from your database.
+          </h1>
           <p className={styles.description}>
-            This page is a server component that reads directly from Prisma and turns
-            the result into a polished operational view. Clean data, fast rendering,
-            zero placeholder fluff.
+            This page is a server component that reads directly from Prisma and
+            turns the result into a polished operational view. Clean data, fast
+            rendering, zero placeholder fluff.
           </p>
           <div className={styles.pills}>
             <span>Server-rendered</span>
@@ -101,7 +109,9 @@ export default async function Home() {
         <div className={styles.panelHeader}>
           <div>
             <p className={styles.sectionEyebrow}>User registry</p>
-            <h2 className={styles.sectionTitle}>All users fetched through Prisma</h2>
+            <h2 className={styles.sectionTitle}>
+              All users fetched through Prisma
+            </h2>
           </div>
           <div className={styles.panelMeta}>
             <span>{totalUsers} records</span>
@@ -118,8 +128,8 @@ export default async function Home() {
           <div className={styles.statusCard}>
             <span className={styles.statusLabel}>No users yet</span>
             <p>
-              Your Prisma query worked, but the `User` table is empty right now. Seed
-              a few rows and they will appear here automatically.
+              Your Prisma query worked, but the `User` table is empty right now.
+              Seed a few rows and they will appear here automatically.
             </p>
           </div>
         ) : (
@@ -138,7 +148,9 @@ export default async function Home() {
                   <tr key={user.userId}>
                     <td>
                       <div className={styles.userCell}>
-                        <span className={styles.avatar}>{getInitials(user.username)}</span>
+                        <span className={styles.avatar}>
+                          {getInitials(user.username)}
+                        </span>
                         <div>
                           <strong>{user.username}</strong>
                           <p>Workspace account</p>

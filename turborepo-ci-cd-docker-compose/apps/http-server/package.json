@@ -18,6 +18,7 @@
     "@types/express": "^5.0.6",
     "typescript": "^6.0.3"
   },
+  "type":"module",
   "dependencies": {
     "@repo/prisma": "workspace:*",
     "express": "^5.2.1"

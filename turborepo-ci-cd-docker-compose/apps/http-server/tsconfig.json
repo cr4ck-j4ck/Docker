@@ -4,8 +4,8 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "strictNullChecks": true,
-    "moduleResolution": "bundler",
-    "module": "ESNext",
+    "moduleResolution": "node16",
+    "module": "Node16",
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
