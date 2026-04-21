@@ -1,16 +1,15 @@
 {
   "extends": "@repo/typescript-config/base.json",
   "compilerOptions": {
-    "rootDir": "./",
+    "rootDir": "./src",
     "outDir": "./dist",
     "strictNullChecks": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
     "declaration": true,
     "declarationMap": true,
     "emitDeclarationOnly": false,
-    "noEmit": true
+    "types": ["node"]
   },
   "include": ["src", "generated"],
   "exclude": ["node_modules", "dist"]
