@@ -1,0 +1,56 @@
+# syntax=docker/dockerfile:1
+
+FROM node:20-alpine AS base
+WORKDIR /app
+RUN corepack enable && corepack prepare pnpm@latest --activate
+# Optional: install turbo globally if you prefer, but we can run via npx/dlx too
+
+# Pruner stage - isolates only the needed files for http-server and its dependencies
+FROM base AS pruner
+WORKDIR /app
+COPY . .
+RUN pnpm dlx turbo prune http-server --docker
+
+# Builder stage - install, build everything needed
+FROM base AS builder
+WORKDIR /app
+
+# Copy pruned workspace files (json + lockfile first for caching)
+COPY --from=pruner /app/out/json/ .
+COPY --from=pruner /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
+
+RUN pnpm install --frozen-lockfile
+
+# Copy full source code for build
+COPY --from=pruner /app/out/full/ .
+
+# Build only the target app and its dependencies
+RUN pnpm turbo run build --filter=http-server...
+
+# Deploy stage - this is the key: pnpm deploy creates a clean, self-contained production folder
+FROM base AS deployer
+WORKDIR /app
+
+# Copy the entire built workspace from builder
+COPY --from=builder /app .
+
+# Deploy only the http-server package to /prod (this creates correct structure + symlinks)
+RUN pnpm --filter=http-server deploy --prod ./prod
+
+# Runner stage - minimal final image
+FROM base AS runner
+WORKDIR /prod
+
+# Create non-root user (best practice)
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 http-server
+
+# Copy the deployed production folder
+COPY --from=deployer --chown=http-server:nodejs ./prod .
+
+USER http-server
+
+EXPOSE 3001
+
+# Run using the deployed package's scripts (no need for --filter anymore)
+CMD ["pnpm", "start"]
