@@ -57,7 +57,7 @@ export default async function Home() {
     <main className={styles.page}>
       <section className={styles.hero}>
         <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}>Next.js x Prisma x Postgres</p>
+          <p className={styles.eyebrow}>Next.js x Prisma x Postgresql</p>
           <h1 className={styles.title}>User intelligence, rendered live from your database.</h1>
           <p className={styles.description}>
             This page is a server component that reads directly from Prisma and turns

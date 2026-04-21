@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev":"dotenv -e ../../.env pnpm dlx tsx src/index.ts"
+    "dev":"dotenv -e ../../.env pnpm dlx tsx src/index.ts",
+    "build":"tsc",
+    "start":"node ./dist/index.js"
   },
   "keywords": [],
   "author": "",
